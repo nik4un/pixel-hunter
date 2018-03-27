@@ -4,7 +4,8 @@
 *.log
 *.pdf
 *.psd
-*.sublime*
+yarn.lock
 build/
 node_modules/
+npm-debug.*
 Thumbs.db
