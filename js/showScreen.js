@@ -1,8 +1,10 @@
 const root = document.querySelector(`.central`);
 
-export default (elem) => {
-  if (elem) {
+export default (...elems) => {
+  if (elems) {
     root.innerHTML = ``;
-    root.appendChild(elem);
+    elems.forEach((el) => {
+      root.appendChild(el);
+    });
   }
 };
