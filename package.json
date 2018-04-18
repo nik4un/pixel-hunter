@@ -7,13 +7,16 @@
     "eslint": "eslint js/",
     "build": "gulp build",
     "start": "gulp serve",
-    "test": "npm run eslint && gulp test"
+    "test": "gulp test"
   },
   "devDependencies": {
+    "ajv": "5.5.*",
     "autoprefixer": "^8.1.*",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.*",
     "babel-register": "6.26.*",
     "browser-sync": "^2.23.*",
+    "chai": "4.1.2",
+    "chai-arrays": "2.0.0",
     "css-mqpacker": "^6.0.*",
     "del": "^3.0.*",
     "eslint": "^4.19.*",

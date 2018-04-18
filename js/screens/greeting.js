@@ -2,7 +2,6 @@ import createDomElement from "../create-dom-element";
 import showScreen from "../showScreen";
 import footer from "./footer";
 import rules from "./rules";
-import gameParam from "../data/rules";
 
 export default () => {
   const block = `<div class="greeting central--blur">
@@ -23,7 +22,7 @@ export default () => {
   const going = element.querySelector(`.greeting__continue`);
 
   const onClickGoing = () => {
-    rules(gameParam);
+    rules();
   };
 
   going.addEventListener(`click`, onClickGoing);

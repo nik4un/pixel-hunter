@@ -1,4 +1,4 @@
-import { developmentYear, socialGroups } from '../data/footer';
+import { socialGroups, developmentYear } from '../data/constants';
 
 export default `<footer class="footer">
   <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>

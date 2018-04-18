@@ -17,7 +17,6 @@ export default () => {
 
   const onClickAsterisk = () => {
     greeting();
-    // showScreen(greeting());
   };
 
   asterisk.addEventListener(`click`, onClickAsterisk);

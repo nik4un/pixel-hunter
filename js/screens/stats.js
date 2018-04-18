@@ -3,15 +3,16 @@ import showScreen from "../showScreen";
 import footer from "./footer";
 import gameState from "./game-state";
 import { headerNode, backToIntro } from "./header";
+// import { gameCourse } from "../game";
 
 export default (gameResult) => {
   const block = `
   <div class="result">
-    <h1>Победа!</h1>
+    <h1>${gameResult[0].grandTotal}</h1>
     ${gameResult
     .map((el, i) => {
       const {
-        stats, pointsMultiply, totalPoints, bonus, finalSum,
+        stats, pointsFactor, totalPoints, bonuses, finalSum,
       } = el;
       return `
       <table class="result__table">
@@ -22,20 +23,20 @@ export default (gameResult) => {
               ${gameState(stats)}
             </ul>
           </td>
-          <td class="result__points">×&nbsp;${pointsMultiply}</td>
+          <td class="result__points">×&nbsp;${finalSum === `fail` ? `` : pointsFactor}</td>
           <td class="result__total">${totalPoints}</td>
         </tr>
-        ${bonus.map((item) => {
+        ${bonuses.map((item) => {
     if (item) {
       const {
-        name, shortName, count, points, total,
+        name, shortName, count, bonusFactor, total,
       } = item;
       return `
         <tr>
           <td></td>
           <td class="result__extra">${name}:</td>
           <td class="result__extra">${count}&nbsp;<span class="stats__result stats__result--${shortName}"></span></td>
-          <td class="result__points">×&nbsp;${points}</td>
+          <td class="result__points">×&nbsp;${Math.abs(bonusFactor)}</td>
           <td class="result__total">${total}</td>
         </tr>`;
     }

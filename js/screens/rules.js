@@ -2,21 +2,24 @@ import createDomElement from "../create-dom-element";
 import showScreen from "../showScreen";
 import { headerNode, backToIntro } from './header';
 import footer from "./footer";
-import game1 from "./game1";
-import { gameInit } from '../data/games';
+import { attempts } from "../data/questions";
+import { LIVES_COUNT, GAME_DURATION } from "../data/constants";
+import game from "../game";
+import { getCorrectForm } from "../utilites";
 
-export default (gameRules) => {
-  const { attempts, maxFailAttempts, attemptTime: { value: responseTime, unit } } = gameRules;
-
+export default () => {
   const block = `
   <div class="rules">
     <h1 class="rules__title">Правила</h1>
-    <p class="rules__description">Угадай ${attempts} раз для каждого изображения фото <img
+    <p class="rules__description">Угадай ${attempts} ${
+  getCorrectForm(attempts, [`раз`, `раза`, `раз`])} для каждого изображения фото <img
       src="img/photo_icon.png" width="16" height="16"> или рисунок <img
       src="img/paint_icon.png" width="16" height="16" alt="">.<br>
       Фотографиями или рисунками могут быть оба изображения.<br>
-      На каждую попытку отводится ${responseTime} ${unit}.<br>
-      Ошибиться можно не более ${maxFailAttempts} раз.<br>
+      На каждую попытку отводится ${GAME_DURATION} ${
+  getCorrectForm(GAME_DURATION, [`секунда`, `секунды`, `секунд`])}.<br>
+      Ошибиться можно не более ${LIVES_COUNT} ${
+  getCorrectForm(LIVES_COUNT, [`раза`, `раз`, `раз`])}.<br>
       <br>
       Готовы?
     </p>
@@ -41,7 +44,7 @@ ${footer}`;
   };
 
   const onClickGoingBtn = (evt) => {
-    game1(gameInit[0]);
+    game(true);
     evt.preventDefault();
   };
 

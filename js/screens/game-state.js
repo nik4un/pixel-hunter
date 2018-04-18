@@ -1,9 +1,9 @@
-import gameParam from "../data/rules";
+// import { attempts } from "../data/questions";
 
-const { attempts } = gameParam;
+const attempts = 10;
 
 export default (data) => {
-  const arr = data;
+  const arr = Array.from(data);
   const tail = new Array(attempts);
   tail.fill(`unknown`);
   arr.push(...tail);

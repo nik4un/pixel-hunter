@@ -1,28 +1,4 @@
-export const gameInit = [
-  {
-    kindeOfGame: 1,
-    lives: 3,
-    images: [`https://k37.kn3.net/51254FE87.jpg`, `https://k41.kn3.net/CF684A85A.jpg`],
-    stats: [`wrong`, `slow`, `fast`, `unknown`, `correct`],
-    gameResult: `wrong`,
-  },
-  {
-    kindeOfGame: 2,
-    lives: 2,
-    images: [`https://k41.kn3.net/FF5009BF0.jpg`],
-    stats: [`wrong`, `slow`, `fast`, `correct`, `unknown`, `wrong`, `slow`],
-    gameResult: `unknown`,
-  },
-  {
-    kindeOfGame: 3,
-    lives: 1,
-    images: [`https://k43.kn3.net/9189AF8D2.jpg`, `https://k36.kn3.net/E9B401148.jpg`, `https://k43.kn3.net/1C4F7F5D5.jpg`],
-    stats: [`wrong`, `slow`, `fast`, `correct`, `unknown`, `wrong`, `slow`, `unknown`, `fast`],
-    gameResult: `correct`,
-  },
-];
-
-export const finalResult = [
+const finalResult = [
   {
     success: true,
     stats: [`wrong`, `slow`, `fast`, `unknown`, `correct`, `slow`, `fast`, `unknown`, `wrong`, `unknown`],
@@ -73,3 +49,5 @@ export const finalResult = [
     finalSum: 1000,
   },
 ];
+
+export default finalResult;
