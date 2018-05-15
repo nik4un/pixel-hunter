@@ -17,7 +17,6 @@ export default (gameOption, func) => {
     images.push(image.url);
     types.push(type);
   });
-  // console.log(images, types);
   const block = `
   <div class="game">
     <p class="game__task">${question}</p>
@@ -57,10 +56,8 @@ ${footer}`;
   const onChangeAnswer = () => {
     const allSelected = [...answers].reduce((result, el, i) => {
       const predict = answer.querySelector(`[name="${i}"]:checked`);
-      // console.log(`predict: ${!!predict}`);
       return result && predict;
     }, true);
-    // console.log(`allSelected: ${!!allSelected}`);
     if (allSelected) {
       userAnswer.correctness = [...answers].reduce((result, el, i) => {
         const predict = el.querySelector(`[name]:checked`).value === types[i];
@@ -78,21 +75,15 @@ ${footer}`;
     if (evt.detail.wasAnswer) {
       userAnswer.wasAnswer = true;
       userAnswer.timeAnswer = evt.detail.time;
-      console.log(`Игрок оветил спустя ${userAnswer.timeAnswer} сек. ${userAnswer.correctness}`);
     } else {
       userAnswer.wasAnswer = false;
       userAnswer.timeAnswer = evt.detail.time;
       userAnswer.correctness = false;
-      console.log(`Время на ответ истекло. Прошло ${userAnswer.timeAnswer} сек.`);
     }
-
-    console.log(userAnswer);
 
     if (func) {
       func(userAnswer);
     }
-
-    // game2(gameInit[1]);
   };
 
   answer.addEventListener(`change`, onChangeAnswer);

@@ -17,7 +17,6 @@ export default (gameOption, func) => {
     images.push(image.url);
     types.push(type);
   });
-  // console.log(images, types);
   const block = `
   <div class="game">
     <p class="game__task">${question}</p>
@@ -76,15 +75,11 @@ ${footer}`;
     if (evt.detail.wasAnswer) {
       userAnswer.wasAnswer = true;
       userAnswer.timeAnswer = evt.detail.time;
-      console.log(`Игрок оветил спустя ${userAnswer.timeAnswer} сек. ${userAnswer.correctness}`);
     } else {
       userAnswer.wasAnswer = false;
       userAnswer.timeAnswer = evt.detail.time;
       userAnswer.correctness = false;
-      console.log(`Время на ответ истекло. Прошло ${userAnswer.timeAnswer} сек.`);
     }
-
-    console.log(userAnswer);
 
     if (func) {
       func(userAnswer);

@@ -8,13 +8,16 @@
 //   const arr = [1, 2, 3, 4, 5];
 //   describe(`Длинна результирующего массива`, () => {
 //     it(`num < длины исходного`, () => {
-//       assert.lengthOf(getRandomFromArray(arr, 3), 3, /Длинна результирующего массива должна быть 3/);
+//       assert.
+//         lengthOf(getRandomFromArray(arr, 3), 3, /Длинна результирующего массива должна быть 3/);
 //     });
 //     it(`num > длины исходного`, () => {
-//       assert.lengthOf(getRandomFromArray(arr, 7), 5, /Длинна результирующего массива должна быть 5/);
+//       assert.
+//         lengthOf(getRandomFromArray(arr, 7), 5, /Длинна результирующего массива должна быть 5/);
 //     });
 //     it(`num отсутствует`, () => {
-//       assert.lengthOf(getRandomFromArray(arr), 5, /Длинна результирующего массива должна быть 5/);
+//       assert.
+//         lengthOf(getRandomFromArray(arr), 5, /Длинна результирующего массива должна быть 5/);
 //     });
 //     it(`arr & num отсутствуют`, () => {
 //       assert.lengthOf(getRandomFromArray(), 0, /Длинна результирующего массива должна быть 0/);
