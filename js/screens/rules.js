@@ -2,12 +2,12 @@ import createDomElement from "../create-dom-element";
 import showScreen from "../showScreen";
 import { headerNode, backToIntro } from './header';
 import footer from "./footer";
-import { attempts } from "../data/questions";
 import { LIVES_COUNT, GAME_DURATION } from "../data/constants";
-import game from "../game";
+import app from "../main";
 import { getCorrectForm } from "../utilites";
 
 export default () => {
+  const attempts = window.gameCourse.questionsCount;
   const block = `
   <div class="rules">
     <h1 class="rules__title">Правила</h1>
@@ -24,7 +24,7 @@ export default () => {
       Готовы?
     </p>
     <form class="rules__form">
-      <input class="rules__input" type="text" placeholder="Ваше Имя">
+      <input class="rules__input" type="text" placeholder="Ваше Имя" value="${window.gameCourse.gamerName}">
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </div>
@@ -35,6 +35,10 @@ ${footer}`;
   const goingBtn = element.querySelector(`[type="submit"]`);
   const nameImput = element.querySelector(`form input`);
 
+  if (nameImput.value !== ``) {
+    goingBtn.disabled = false;
+  }
+
   const onImput = () => {
     if (nameImput.value.trim() === ``) {
       goingBtn.disabled = true;
@@ -44,12 +48,13 @@ ${footer}`;
   };
 
   const onClickGoingBtn = (evt) => {
-    game(true);
     evt.preventDefault();
+    window.gameCourse.gamerName = nameImput.value;
+    window.gameCourse.init();
+    app.showGame();
   };
 
   nameImput.addEventListener(`input`, onImput);
   goingBtn.addEventListener(`click`, onClickGoingBtn);
-
   showScreen(header, element);
 };

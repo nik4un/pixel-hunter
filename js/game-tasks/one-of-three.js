@@ -9,7 +9,7 @@ import {
 import footer from "../screens/footer";
 import setTimer from "../timer";
 import gameState from "../screens/game-state";
-import Answer from "../templates";
+import { Answer, addImage } from "../game";
 
 export default (gameOption, func) => {
   const {
@@ -19,6 +19,7 @@ export default (gameOption, func) => {
     question,
   } = gameOption;
   const images = [];
+  const relationsHW = [];
   const types = [];
 
   const detectionTask = {
@@ -27,11 +28,9 @@ export default (gameOption, func) => {
   };
 
   task.forEach((el) => {
-    const {
-      image,
-      type,
-    } = el;
+    const { image, type } = el;
     images.push(image.url);
+    relationsHW.push(image.height / image.width);
     types.push(type);
   });
   const block = `
@@ -39,7 +38,7 @@ export default (gameOption, func) => {
     <p class="game__task">${question}</p>
     <form class="game__content  game__content--triple">
     ${images.map((el, i) =>
-    `<div class="game__option" value="${i}" style="background-image: url(${el})"></div>`).join(``)}
+    `<div class="game__option" value="${i}"></div>`).join(``)}
     </form>
     <div class="stats">
       <ul class="stats">
@@ -59,7 +58,7 @@ ${footer}`;
   const header = headerNode(...headerContent);
   const element = createDomElement(block);
   const answer = element.querySelector(`form`);
-  const formOptions = answer.querySelectorAll(`.game__option`);
+  const answers = answer.querySelectorAll(`.game__option`);
 
   const onClickOpion = (evt) => {
     const choice = +evt.target.attributes.value.nodeValue;
@@ -68,7 +67,7 @@ ${footer}`;
 
     const event = new CustomEvent(`stopTimer`);
     document.dispatchEvent(event);
-    [...formOptions].forEach((option) => {
+    [...answers].forEach((option) => {
       option.removeEventListener(`click`, onClickOpion);
     });
   };
@@ -89,7 +88,8 @@ ${footer}`;
     }
   };
 
-  [...formOptions].forEach((option) => {
+  [...answers].forEach((option) => {
+    addImage(option, relationsHW[option.getAttribute(`value`)], window.gameCourse.imagesForGame[images[option.getAttribute(`value`)]]);
     option.addEventListener(`click`, onClickOpion);
   });
   document.addEventListener(`stopGame`, onStopGame);

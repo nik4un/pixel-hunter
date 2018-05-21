@@ -1,7 +1,7 @@
 import createDomElement from "../create-dom-element";
 import showScreen from "../showScreen";
 import footer from "./footer";
-import greeting from "./greeting";
+import app from "../main";
 
 const block = `<div id="main" class="central__content">
     <div id="intro" class="intro">
@@ -16,7 +16,7 @@ export default () => {
   const asterisk = element.querySelector(`.intro__asterisk`);
 
   const onClickAsterisk = () => {
-    greeting();
+    app.showGreeting();
   };
 
   asterisk.addEventListener(`click`, onClickAsterisk);

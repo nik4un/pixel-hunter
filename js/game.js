@@ -1,21 +1,17 @@
-import { LIVES_COUNT, RESPONSE_SPEED } from './data/constants';
-import { questions, attempts } from './data/questions';
-import tinderLike from "./games/tinder-like";
-import towOfTow from "./games/two-of-two";
-import oneOfThree from "./games/one-of-three";
-// import finalResult from "./data/games";
-import showStats from "./screens/stats";
-import finalStats from "./final-stats";
+import { RESPONSE_SPEED } from './data/constants';
+import tinderLike from "./game-tasks/tinder-like";
+import towOfTow from "./game-tasks/two-of-two";
+import oneOfThree from "./game-tasks/one-of-three";
+import app from "./main";
 
-let gameQuestions = Array.from(questions);
-let questionsCount = attempts;
-
-export const gameCourse = {
-  question: null,
-  task: null,
-  lives: LIVES_COUNT,
-  stats: [],
-};
+class Quest {
+  constructor(task, lives, stats, question) {
+    this.task = task;
+    this.lives = lives;
+    this.stats = stats;
+    this.question = question;
+  }
+}
 
 const getLevel = {
   "tinder-like": tinderLike,
@@ -25,11 +21,11 @@ const getLevel = {
 
 const speedEvaluation = (timeAnswer) => {
   if (timeAnswer < RESPONSE_SPEED.fast) {
-    gameCourse.stats.push(`fast`);
+    window.gameCourse.statistics.push(`fast`);
   } else if (timeAnswer > RESPONSE_SPEED.slow) {
-    gameCourse.stats.push(`slow`);
+    window.gameCourse.statistics.push(`slow`);
   } else {
-    gameCourse.stats.push(`correct`);
+    window.gameCourse.statistics.push(`correct`);
   }
 };
 
@@ -39,16 +35,16 @@ export const resultAnalysis = (data) => {
     if (correctness) {
       speedEvaluation(timeAnswer);
     } else {
-      gameCourse.stats.push(`wrong`);
-      gameCourse.lives -= 1;
+      window.gameCourse.statistics.push(`wrong`);
+      window.gameCourse.lives -= 1;
     }
   } else {
-    gameCourse.stats.push(`unknown`);
-    gameCourse.lives -= 1;
+    window.gameCourse.statistics.push(`unknown`);
+    window.gameCourse.lives -= 1;
   }
 };
 
-const game = (init) => {
+export const game = () => {
   const onStageEnd = (data) => {
     const { continuation } = data;
     if (data) {
@@ -59,28 +55,39 @@ const game = (init) => {
     }
   };
 
-  if (init) {
-    gameCourse.question = null;
-    gameCourse.task = null;
-    gameCourse.lives = LIVES_COUNT;
-    gameCourse.stats = [];
-    gameQuestions = Array.from(questions);
-    questionsCount = attempts;
-  }
-  if (questionsCount > 0 && gameCourse.lives > 0) {
-    const currentQuest = gameQuestions.shift();
-    questionsCount = gameQuestions.length;
-    gameCourse.question = currentQuest.question;
-    gameCourse.task = currentQuest.answers;
-    getLevel[currentQuest.type](gameCourse, onStageEnd);
+  if (window.gameCourse.level < window.gameCourse.questionsCount
+    && window.gameCourse.lives > 0) {
+    const currentQuest = window.gameCourse.gameQuestions[window.gameCourse.level];
+    window.gameCourse.level += 1;
+    const quest = new Quest(
+      currentQuest.answers,
+      window.gameCourse.lives,
+      window.gameCourse.statistics,
+      currentQuest.question,
+    );
+    getLevel[currentQuest.type](quest, onStageEnd);
   } else {
-    const gameResult = {
-      lives: gameCourse.lives,
-      stats: gameCourse.stats,
-    };
-    const result = finalStats(gameResult);
-    showStats(result);
+    app.showStatistic();
   }
 };
 
-export default game;
+export const addImage = (node, nodeHW, image) => {
+  const img = image;
+  const theFirstChild = node.firstChild;
+  const imageHW = image.naturalHeight / image.naturalWidth;
+  if (nodeHW >= imageHW) {
+    img.style.width = `100%`;
+  } else {
+    img.style.height = `100%`;
+  }
+  node.insertBefore(img, theFirstChild);
+};
+
+export const Answer = class {
+  constructor(wasAnswer, timeAnswer, correctness) {
+    this.wasAnswer = wasAnswer;
+    this.timeAnswer = timeAnswer;
+    this.correctness = correctness;
+    this.continuation = true;
+  }
+};

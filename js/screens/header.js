@@ -1,6 +1,6 @@
 import createDomElement from "../create-dom-element";
-import intro from "./intro";
 import { LIVES_COUNT, GAME_DURATION } from "../data/constants";
+import app from "../main";
 
 
 export const backToIntro = (func) => {
@@ -18,7 +18,7 @@ export const backToIntro = (func) => {
     }
     const event = new CustomEvent(`stopTimer`);
     document.dispatchEvent(event);
-    intro();
+    app.showIntro();
   });
   return element;
 };

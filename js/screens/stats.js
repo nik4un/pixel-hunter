@@ -3,7 +3,6 @@ import showScreen from "../showScreen";
 import footer from "./footer";
 import gameState from "./game-state";
 import { headerNode, backToIntro } from "./header";
-// import { gameCourse } from "../game";
 
 export default (gameResult) => {
   const block = `

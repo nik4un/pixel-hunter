@@ -1,8 +1,5 @@
-// import { attempts } from "../data/questions";
-
-const attempts = 10;
-
 export default (data) => {
+  const attempts = window.gameCourse.questionsCount;
   const arr = Array.from(data);
   const tail = new Array(attempts);
   tail.fill(`unknown`);

@@ -4,17 +4,19 @@ import { headerNode, backToIntro, timer, gameLives } from '../screens/header';
 import footer from "../screens/footer";
 import setTimer from "../timer";
 import gameState from "../screens/game-state";
-import Answer from "../templates";
+import { Answer, addImage } from "../game";
 
 export default (gameOption, func) => {
   const {
     task, lives, stats, question,
   } = gameOption;
   const images = [];
+  const relationsHW = [];
   const types = [];
   task.forEach((el) => {
     const { image, type } = el;
     images.push(image.url);
+    relationsHW.push(image.height / image.width);
     types.push(type);
   });
   const block = `
@@ -22,7 +24,7 @@ export default (gameOption, func) => {
     <p class="game__task">${question}</p>
     <form class="game__content  game__content--wide">
     ${images.map((el, i) => `
-    <div class="game__option" style="background-image: url(${el})">
+    <div class="game__option" value="${i}">
       <label class="game__answer  game__answer--photo">
         <input name="${i}" type="radio" value="photo">
         <span>Фото</span>
@@ -52,6 +54,10 @@ ${footer}`;
   const element = createDomElement(block);
   const answer = element.querySelector(`form`);
   const answers = answer.querySelectorAll(`.game__option`);
+
+  [...answers].forEach((option) => {
+    addImage(option, relationsHW[option.getAttribute(`value`)], window.gameCourse.imagesForGame[images[option.getAttribute(`value`)]]);
+  });
 
   const onChangeAnswer = () => {
     const allSelected = [...answers].reduce((result, el, i) => {

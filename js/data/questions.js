@@ -59,5 +59,3 @@ export const questions = [
 ];
 
 export const attempts = questions.length;
-// console.log(attempts);
-

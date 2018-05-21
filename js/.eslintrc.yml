@@ -11,3 +11,4 @@ extends: 'airbnb-base'
 rules:
   quotes: [2, 'backtick']
   arrow-parens: [2, 'always']
+  no-console: [0]

@@ -1,4 +1,7 @@
-import { GAME_DURATION } from './data/constants';
+import { GAME_DURATION, TIMER_IS_OVER_VALUE } from './data/constants';
+
+const TIMER_CLASS_NAME = `game__timer`;
+const TIMER_IS_OVER_CLASS_NAME = `game__timer-over`;
 
 const Timer = class {
   constructor() {
@@ -34,11 +37,15 @@ const Timer = class {
 };
 
 export default () => {
-  const parentTimer = document.querySelector(`.game__timer`);
+  const parentTimer = document.querySelector(`.${TIMER_CLASS_NAME}`);
 
-  const printTime = (vale) => {
+  const printTime = (value) => {
     if (parentTimer) {
-      parentTimer.innerHTML = vale;
+      parentTimer.innerHTML = value;
+    }
+
+    if (value <= TIMER_IS_OVER_VALUE) {
+      parentTimer.classList.add(TIMER_IS_OVER_CLASS_NAME);
     }
   };
 

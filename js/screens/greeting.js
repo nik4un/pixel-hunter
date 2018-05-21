@@ -1,7 +1,7 @@
 import createDomElement from "../create-dom-element";
 import showScreen from "../showScreen";
 import footer from "./footer";
-import rules from "./rules";
+import app from "../main";
 
 export default () => {
   const block = `<div class="greeting central--blur">
@@ -22,7 +22,7 @@ export default () => {
   const going = element.querySelector(`.greeting__continue`);
 
   const onClickGoing = () => {
-    rules();
+    app.showRules();
   };
 
   going.addEventListener(`click`, onClickGoing);

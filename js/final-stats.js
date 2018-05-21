@@ -1,8 +1,4 @@
-// import { attempts } from "./data/questions";
-import { BOOST_FACTOR, LEVELS_COUNT } from "./data/constants";
-// import showStats from "./screens/stats";
-
-const attempts = LEVELS_COUNT;
+import { BOOST_FACTOR } from "./data/constants";
 
 const FailResult = class {
   constructor(stats) {
@@ -42,10 +38,10 @@ const Bonus = class {
 };
 
 
-const finalStats = (data) => {
-  const { lives, stats } = data;
+const finalStats = () => {
+  const { questionsCount, lives, statistics } = window.gameCourse;
 
-  if (stats.length === attempts) {
+  if (statistics.length === questionsCount) {
     const bonusOverview = {
       fast: 0,
       heart: lives,
@@ -72,7 +68,7 @@ const finalStats = (data) => {
       slow: slowFunc,
     };
 
-    stats.forEach((item) => evaluateResults[item]());
+    statistics.forEach((item) => evaluateResults[item]());
 
     const totalPoints = points * BOOST_FACTOR.correct;
     const gameBonuses = [];
@@ -86,9 +82,9 @@ const finalStats = (data) => {
       }
     });
 
-    return [new SuccessResult(stats, gameBonuses, totalPoints, finalSum)];
+    return [new SuccessResult(statistics, gameBonuses, totalPoints, finalSum)];
   }
-  return [new FailResult(stats)];
+  return [new FailResult(statistics)];
 };
 
 export default finalStats;

@@ -1,8 +1,13 @@
-export const LEVELS_COUNT = 3;
+export const API = {
+  questions: `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`,
+  statistic: `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/stats/:username:`,
+};
 
-export const LIVES_COUNT = 1;
+export const LIVES_COUNT = 3; // 3
 
-export const GAME_DURATION = 10; // 30
+export const GAME_DURATION = 30; // 30
+
+export const TIMER_IS_OVER_VALUE = 5;
 
 export const BOOST_FACTOR = {
   correct: 100,
@@ -12,13 +17,13 @@ export const BOOST_FACTOR = {
 };
 
 export const RESPONSE_SPEED = {
-  fast: 4, // 10
-  slow: 7, // 20
+  fast: 10, // 10
+  slow: 20, // 20
 };
 
-export const developmentYear = 2018;
+export const DEVELOPMENT_YEAR = 2018;
 
-export const socialGroups = [
+export const SOCIAL_GROUPS = [
   {
     name: `Твиттер`,
     shortName: `tw`,
