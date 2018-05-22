@@ -38,8 +38,8 @@ const Bonus = class {
 };
 
 
-const finalStats = () => {
-  const { questionsCount, lives, statistics } = window.gameCourse;
+const finalStats = (data) => {
+  const { questionsCount, lives, statistics } = data;
 
   if (statistics.length === questionsCount) {
     const bonusOverview = {

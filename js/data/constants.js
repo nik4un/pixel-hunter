@@ -1,7 +1,8 @@
-export const API = {
-  questions: `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`,
-  statistic: `https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/stats/:username:`,
-};
+export const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
+// {
+//   questions: `https://es.dump.academy/pixel-hunter/questions`,
+//   statistic: `https://es.dump.academy/pixel-hunter/stats/:username:`,
+// };
 
 export const LIVES_COUNT = 3; // 3
 

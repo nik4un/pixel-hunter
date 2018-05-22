@@ -1,5 +1,6 @@
-import { LIVES_COUNT } from './data/constants'; // API
-import { questions } from './data/questions';
+import { LIVES_COUNT } from './data/constants';
+// import { questions } from './data/questions';
+import Loader from './data/server-data';
 import { preloadImages, getImages } from './images';
 import intro from './screens/intro';
 import greeting from './screens/greeting';
@@ -51,7 +52,10 @@ const newGame = () => {
   game();
 };
 
-const getStatistic = () => statistic(finalStats());
+const getStatistic = () => {
+  console.log(window.gameCourse.statistics);
+  statistic(finalStats(window.gameCourse));
+};
 
 class App {
   constructor() {
@@ -77,9 +81,12 @@ class App {
 
     window.addEventListener(`hashchange`, onHashchange, false);
 
-    window.gameCourse.gameQuestions = questions;
-    const allGameImages = getImages(questions);
-    preloadImages(allGameImages)
+    Loader.loadData()
+      .then((result) => {
+        window.gameCourse.gameQuestions = result;
+        const allGameImages = getImages(result);
+        return preloadImages(allGameImages);
+      })
       .then((arr) => {
         arr.forEach((el) => {
           const [url, image] = el;
@@ -88,22 +95,6 @@ class App {
         this.showIntro();
         this.init();
       });
-
-    // fetch(API.questions)
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     window.gameCourse.gameQuestions = result;
-    //     const allGameImages = getImages(result);
-    //     preloadImages(allGameImages)
-    //       .then((arr) => {
-    //         arr.forEach((el) => {
-    //           const [url, image] = el;
-    //           window.gameCourse.imagesForGame[url] = image;
-    //         });
-    //         this.showIntro();
-    //         this.init();
-    //       });
-    //   });
   }
 
   init() {

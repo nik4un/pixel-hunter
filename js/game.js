@@ -39,7 +39,7 @@ export const resultAnalysis = (data) => {
       window.gameCourse.lives -= 1;
     }
   } else {
-    window.gameCourse.statistics.push(`unknown`);
+    window.gameCourse.statistics.push(`wrong`);
     window.gameCourse.lives -= 1;
   }
 };
