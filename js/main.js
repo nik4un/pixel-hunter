@@ -45,10 +45,6 @@ const newGame = () => {
   game();
 };
 
-// const manageGameCourse(p, v) {
-//   window.gameCourse[p] = v;
-// };
-
 const getStatistic = () => {
   const data = {
     stats: window.gameCourse.statistics,
@@ -62,7 +58,8 @@ const getStatistic = () => {
           .then((result) => {
             const serverStats = Array.from(result);
             serverStats.sort(((a, b) => b.date - a.date));
-            const res = serverStats.map((item) => finalStats(item, window.gameCourse.questionsCount)).splice(0, 4);
+            const res = serverStats.map((item) =>
+              finalStats(item, window.gameCourse.questionsCount)).splice(0, 4);
             statistic(res);
           });
       }
