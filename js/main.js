@@ -1,5 +1,4 @@
 import { LIVES_COUNT } from './data/constants';
-// import { questions } from './data/questions';
 import Loader from './data/server-data';
 import { preloadImages, getImages } from './images';
 import intro from './screens/intro';
@@ -39,12 +38,6 @@ const getHashControllerId = (hash) => {
   return hashParams ? hashParams[0] : hashValue;
 };
 
-// const getHashParam = (hash) => {
-//   const hashValue = hash.replace(`#`, ``);
-//   const hashParams = hashValue.split(`=`);
-//   return hashParams ? hashParams[1] : null;
-// };
-
 window.gameCourse = new InitialGame();
 
 const newGame = () => {
@@ -52,9 +45,29 @@ const newGame = () => {
   game();
 };
 
+// const manageGameCourse(p, v) {
+//   window.gameCourse[p] = v;
+// };
+
 const getStatistic = () => {
-  console.log(window.gameCourse.statistics);
-  statistic(finalStats(window.gameCourse));
+  const data = {
+    stats: window.gameCourse.statistics,
+    lives: window.gameCourse.lives,
+  };
+
+  Loader.saveResults(data, window.gameCourse.gamerName)
+    .then((response) => {
+      if (response.ok) {
+        Loader.loadResults(window.gameCourse.gamerName)
+          .then((result) => {
+            const serverStats = Array.from(result);
+            serverStats.sort(((a, b) => b.date - a.date));
+            const res = serverStats.map((item) => finalStats(item, window.gameCourse.questionsCount)).splice(0, 4);
+            statistic(res);
+          });
+      }
+    })
+    .catch((err) => console.log(`Ошибка загрузки статистики: ${err}`));
 };
 
 class App {

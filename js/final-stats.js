@@ -38,10 +38,10 @@ const Bonus = class {
 };
 
 
-const finalStats = (data) => {
-  const { questionsCount, lives, statistics } = data;
+const finalStats = (data, questionsCount) => {
+  const { lives, stats } = data;
 
-  if (statistics.length === questionsCount) {
+  if (stats.length === questionsCount) {
     const bonusOverview = {
       fast: 0,
       heart: lives,
@@ -68,7 +68,7 @@ const finalStats = (data) => {
       slow: slowFunc,
     };
 
-    statistics.forEach((item) => evaluateResults[item]());
+    stats.forEach((item) => evaluateResults[item]());
 
     const totalPoints = points * BOOST_FACTOR.correct;
     const gameBonuses = [];
@@ -82,9 +82,9 @@ const finalStats = (data) => {
       }
     });
 
-    return [new SuccessResult(statistics, gameBonuses, totalPoints, finalSum)];
+    return new SuccessResult(stats, gameBonuses, totalPoints, finalSum);
   }
-  return [new FailResult(statistics)];
+  return new FailResult(stats);
 };
 
 export default finalStats;
